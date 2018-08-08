@@ -123,6 +123,7 @@ function! EasyClip#Paste#Paste(op, format, reg, inline)
     endif
 
     if (shouldAutoFormat)
+        execute 'syntax sync maxlines=' . abs(line("'[") - line("']"))
         let s:lastPasteWasAutoFormatted = 1
         keepjumps normal! `]
         let startPos = getpos('.')
