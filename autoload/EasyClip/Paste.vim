@@ -123,7 +123,11 @@ function! EasyClip#Paste#Paste(op, format, reg, inline)
     endif
 
     if (shouldAutoFormat)
-        execute 'syntax sync maxlines=' . abs(line("'[") - line("']"))
+        if line('$') > 1000
+          execute 'syntax sync maxlines=' . abs(line("'[") - line("']"))
+        else
+          execute 'syntax sync fromstart'
+        endif
         let s:lastPasteWasAutoFormatted = 1
         keepjumps normal! `]
         let startPos = getpos('.')
